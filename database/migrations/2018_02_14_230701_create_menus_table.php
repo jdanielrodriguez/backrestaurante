@@ -20,6 +20,9 @@ class CreateMenusTable extends Migration
             $table->double('costo',20,2)->nullable()->default(null);
             $table->tinyInteger('estado')->nullable()->default(1);
 
+            $table->Integer('cuenta')->unsigned()->nullable()->default(null);
+            $table->foreign('cuenta')->references('id')->on('cuentas')->onDelete('cascade');
+            
             $table->softDeletes();
             $table->timestamps();
         });

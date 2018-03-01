@@ -20,6 +20,13 @@ class CreateComidaMenuTable extends Migration
             $table->double('costo',20,2)->nullable()->default(null);
             $table->tinyInteger('estado')->nullable()->default(1);
 
+            $table->Integer('comida')->unsigned()->nullable()->default(null);
+            $table->foreign('comida')->references('id')->on('comidas')->onDelete('cascade');
+            $table->Integer('combo')->unsigned()->nullable()->default(null);
+            $table->foreign('combo')->references('id')->on('combos')->onDelete('cascade');
+            $table->Integer('menu')->unsigned()->nullable()->default(null);
+            $table->foreign('menu')->references('id')->on('menus')->onDelete('cascade');
+            
             $table->softDeletes();
             $table->timestamps();
         });
