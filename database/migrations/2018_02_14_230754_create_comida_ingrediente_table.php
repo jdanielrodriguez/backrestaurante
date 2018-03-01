@@ -20,6 +20,11 @@ class CreateComidaIngredienteTable extends Migration
             $table->double('costo',20,2)->nullable()->default(null);
             $table->tinyInteger('estado')->nullable()->default(1);
 
+            $table->Integer('comida')->unsigned()->nullable()->default(null);
+            $table->foreign('comida')->references('id')->on('comidas')->onDelete('cascade');
+            $table->Integer('ingrediente')->unsigned()->nullable()->default(null);
+            $table->foreign('ingrediente')->references('id')->on('ingredientes')->onDelete('cascade');
+            
             $table->softDeletes();
             $table->timestamps();
         });
