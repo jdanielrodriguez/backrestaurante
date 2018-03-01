@@ -39,9 +39,8 @@ class ComidaIngredienteController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre'       => 'required',
-            'codigo'       => 'required',
-            'costo'        => 'required',
+            'comida'       => 'required',
+            'ingrediente'  => 'required',
         ]);
         if ( $validator->fails() ) {
             $returnData = array (
@@ -57,9 +56,23 @@ class ComidaIngredienteController extends Controller
                 $newObject->nombre            = $request->get('nombre');
                 $newObject->codigo            = $request->get('codigo');
                 $newObject->costo             = $request->get('costo');
+                $newObject->comida            = $request->get('comida');
+                $newObject->ingrediente       = $request->get('ingrediente');
                 $newObject->save();
                 return Response::json($newObject, 200);
             
+            } catch (\Illuminate\Database\QueryException $e) {
+                if($e->errorInfo[0] == '01000'){
+                    $errorMessage = "Error Constraint";
+                }  else {
+                    $errorMessage = $e->getMessage();
+                }
+                $returnData = array (
+                    'status' => 505,
+                    'SQLState' => $e->errorInfo[0],
+                    'message' => $errorMessage
+                );
+                return Response::json($returnData, 500);
             } catch (Exception $e) {
                 $returnData = array (
                     'status' => 500,
@@ -119,9 +132,23 @@ class ComidaIngredienteController extends Controller
                 $objectUpdate->codigo            = $request->get('codigo', $objectUpdate->codigo);
                 $objectUpdate->costo             = $request->get('costo', $objectUpdate->costo);
                 $objectUpdate->estado            = $request->get('estado', $objectUpdate->estado);
+                $objectUpdate->comida            = $request->get('comida', $objectUpdate->comida);
+                $objectUpdate->ingrediente       = $request->get('ingrediente', $objectUpdate->ingrediente);
                 
                 $objectUpdate->save();
                 return Response::json($objectUpdate, 200);
+            } catch (\Illuminate\Database\QueryException $e) {
+                if($e->errorInfo[0] == '01000'){
+                    $errorMessage = "Error Constraint";
+                }  else {
+                    $errorMessage = $e->getMessage();
+                }
+                $returnData = array (
+                    'status' => 505,
+                    'SQLState' => $e->errorInfo[0],
+                    'message' => $errorMessage
+                );
+                return Response::json($returnData, 500);
             } catch (Exception $e) {
                 $returnData = array (
                     'status' => 500,

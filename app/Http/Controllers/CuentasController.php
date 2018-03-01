@@ -40,8 +40,8 @@ class CuentasController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nombre'       => 'required',
-            'codigo'       => 'required',
-            'costo'        => 'required',
+            'mesa'         => 'required',
+            'usuario'      => 'required',
         ]);
         if ( $validator->fails() ) {
             $returnData = array (
@@ -57,9 +57,25 @@ class CuentasController extends Controller
                 $newObject->nombre            = $request->get('nombre');
                 $newObject->codigo            = $request->get('codigo');
                 $newObject->costo             = $request->get('costo');
+                $newObject->separadas         = $request->get('separadas');
+                $newObject->mesa              = $request->get('mesa');
+                $newObject->usuario           = $request->get('usuario');
+                $newObject->cliente           = $request->get('cliente');
                 $newObject->save();
                 return Response::json($newObject, 200);
             
+            } catch (\Illuminate\Database\QueryException $e) {
+                if($e->errorInfo[0] == '01000'){
+                    $errorMessage = "Error Constraint";
+                }  else {
+                    $errorMessage = $e->getMessage();
+                }
+                $returnData = array (
+                    'status' => 505,
+                    'SQLState' => $e->errorInfo[0],
+                    'message' => $errorMessage
+                );
+                return Response::json($returnData, 500);
             } catch (Exception $e) {
                 $returnData = array (
                     'status' => 500,
@@ -119,9 +135,25 @@ class CuentasController extends Controller
                 $objectUpdate->codigo            = $request->get('codigo', $objectUpdate->codigo);
                 $objectUpdate->costo             = $request->get('costo', $objectUpdate->costo);
                 $objectUpdate->estado            = $request->get('estado', $objectUpdate->estado);
+                $objectUpdate->separadas         = $request->get('separadas', $objectUpdate->separadas);
+                $objectUpdate->mesa              = $request->get('mesa', $objectUpdate->mesa);
+                $objectUpdate->cliente           = $request->get('cliente', $objectUpdate->cliente);
+                $objectUpdate->usuario           = $request->get('usuario', $objectUpdate->usuario);
                 
                 $objectUpdate->save();
                 return Response::json($objectUpdate, 200);
+            } catch (\Illuminate\Database\QueryException $e) {
+                if($e->errorInfo[0] == '01000'){
+                    $errorMessage = "Error Constraint";
+                }  else {
+                    $errorMessage = $e->getMessage();
+                }
+                $returnData = array (
+                    'status' => 505,
+                    'SQLState' => $e->errorInfo[0],
+                    'message' => $errorMessage
+                );
+                return Response::json($returnData, 500);
             } catch (Exception $e) {
                 $returnData = array (
                     'status' => 500,

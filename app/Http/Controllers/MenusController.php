@@ -40,8 +40,7 @@ class MenusController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nombre'       => 'required',
-            'codigo'       => 'required',
-            'costo'        => 'required',
+            'cuenta'       => 'required',
         ]);
         if ( $validator->fails() ) {
             $returnData = array (
@@ -57,9 +56,22 @@ class MenusController extends Controller
                 $newObject->nombre            = $request->get('nombre');
                 $newObject->codigo            = $request->get('codigo');
                 $newObject->costo             = $request->get('costo');
+                $newObject->cuenta            = $request->get('cuenta');
                 $newObject->save();
                 return Response::json($newObject, 200);
             
+            } catch (\Illuminate\Database\QueryException $e) {
+                if($e->errorInfo[0] == '01000'){
+                    $errorMessage = "Error Constraint";
+                }  else {
+                    $errorMessage = $e->getMessage();
+                }
+                $returnData = array (
+                    'status' => 505,
+                    'SQLState' => $e->errorInfo[0],
+                    'message' => $errorMessage
+                );
+                return Response::json($returnData, 500);
             } catch (Exception $e) {
                 $returnData = array (
                     'status' => 500,
@@ -119,9 +131,22 @@ class MenusController extends Controller
                 $objectUpdate->codigo            = $request->get('codigo', $objectUpdate->codigo);
                 $objectUpdate->costo             = $request->get('costo', $objectUpdate->costo);
                 $objectUpdate->estado            = $request->get('estado', $objectUpdate->estado);
+                $objectUpdate->cuenta            = $request->get('cuenta', $objectUpdate->cuenta);
                 
                 $objectUpdate->save();
                 return Response::json($objectUpdate, 200);
+            } catch (\Illuminate\Database\QueryException $e) {
+                if($e->errorInfo[0] == '01000'){
+                    $errorMessage = "Error Constraint";
+                }  else {
+                    $errorMessage = $e->getMessage();
+                }
+                $returnData = array (
+                    'status' => 505,
+                    'SQLState' => $e->errorInfo[0],
+                    'message' => $errorMessage
+                );
+                return Response::json($returnData, 500);
             } catch (Exception $e) {
                 $returnData = array (
                     'status' => 500,
