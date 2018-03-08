@@ -17,7 +17,7 @@ class EmpleadosController extends Controller
      */
     public function index()
     {
-        return Response::json(Empleados::with('puestos')->get(), 200);
+        return Response::json(Empleados::all(), 200);
     }
 
     /**
@@ -41,8 +41,7 @@ class EmpleadosController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre'          => 'required',
             'apellido'        => 'required',
-            'telefono'        => 'required',
-            'puesto'          => 'required'
+            'telefono'        => 'required'
         ]);
         if ( $validator->fails() ) {
             $returnData = array (
@@ -61,7 +60,6 @@ class EmpleadosController extends Controller
                 $newObject->telefono          = $request->get('telefono');
                 $newObject->celular           = $request->get('celular');
                 $newObject->sueldo            = $request->get('sueldo');
-                $newObject->puesto            = $request->get('puesto');
                 $newObject->sucursal          = $request->get('sucursal');
                 $newObject->save();
                 return Response::json($newObject, 200);
@@ -139,7 +137,6 @@ class EmpleadosController extends Controller
                 $objectUpdate->telefono          = $request->get('telefono', $objectUpdate->telefono);
                 $objectUpdate->celular           = $request->get('celular', $objectUpdate->celular);
                 $objectUpdate->sueldo            = $request->get('sueldo', $objectUpdate->sueldo);
-                $objectUpdate->puesto            = $request->get('puesto', $objectUpdate->puesto);
                 $objectUpdate->sucursal          = $request->get('sucursal', $objectUpdate->sucursal);
                 $objectUpdate->estado            = $request->get('estado', $objectUpdate->estado);
                 $objectUpdate->save();

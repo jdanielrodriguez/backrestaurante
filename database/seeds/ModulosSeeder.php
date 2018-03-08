@@ -54,25 +54,11 @@ class ModulosSeeder extends Seeder
         ]);
 
         DB::table('modulos')->insert([
-            'nombre'           => "Empleados",
-            'dir'              => "../app/img/usuariotab.png",
-            'refId'            => "usuario",
-            'icono'            => "user",
-            'link'             => "empleados",
-            'tipo'             => 0,
-            'estado'           => 1,
-            'orden'            => 3,
-            'deleted_at'       => null,
-            'created_at'       => date('Y-m-d H:m:s'),
-            'updated_at'       => date('Y-m-d H:m:s')
-        ]);
-
-        DB::table('modulos')->insert([
-            'nombre'           => "Compras",
+            'nombre'           => "Mesas",
             'dir'              => "../app/img/carro-de-la-compra.png",
-            'refId'            => "compras",
-            'icono'            => "shopping-cart",
-            'link'             => "compras",
+            'refId'            => "mesas",
+            'icono'            => " fa-cutlery",
+            'link'             => "mesas",
             'tipo'             => 0,
             'estado'           => 1,
             'orden'            => 4,
@@ -80,13 +66,13 @@ class ModulosSeeder extends Seeder
             'created_at'       => date('Y-m-d H:m:s'),
             'updated_at'       => date('Y-m-d H:m:s')
         ]);
-        
+
         DB::table('modulos')->insert([
-            'nombre'           => "Ventas",
-            'dir'              => "../app/img/diagrama.png",
-            'refId'            => "ventas",
-            'icono'            => "tags",
-            'link'             => "ventas",
+            'nombre'           => "Comidas",
+            'dir'              => "../app/img/etiqueta-del-precio.png",
+            'refId'            => "comidas",
+            'icono'            => " fa-coffee",
+            'link'             => "comidas",
             'tipo'             => 0,
             'estado'           => 1,
             'orden'            => 5,
@@ -94,16 +80,72 @@ class ModulosSeeder extends Seeder
             'created_at'       => date('Y-m-d H:m:s'),
             'updated_at'       => date('Y-m-d H:m:s')
         ]);
-
+        
         DB::table('modulos')->insert([
-            'nombre'           => "Cuentas",
-            'dir'              => "../app/img/etiqueta-del-precio.png",
-            'refId'            => "cuentas",
-            'icono'            => "cogs",
-            'link'             => "cuentas-cobrar",
-            'tipo'             => 0,
+            'nombre'           => "Combos",
+            'dir'              => "../app/img/diagrama.png",
+            'refId'            => "combos",
+            'icono'            => " fa-puzzle-piece",
+            'link'             => "combos",
+            'tipo'             => 1,
             'estado'           => 1,
             'orden'            => 6,
+            'deleted_at'       => null,
+            'created_at'       => date('Y-m-d H:m:s'),
+            'updated_at'       => date('Y-m-d H:m:s')
+        ]);
+        
+        DB::table('modulos')->insert([
+            'nombre'           => "Cuentas",
+            'dir'              => "../app/img/diagrama.png",
+            'refId'            => "cuentas",
+            'icono'            => "cogs",
+            'link'             => "cuentas",
+            'tipo'             => 0,
+            'estado'           => 1,
+            'orden'            => 7,
+            'deleted_at'       => null,
+            'created_at'       => date('Y-m-d H:m:s'),
+            'updated_at'       => date('Y-m-d H:m:s')
+        ]);
+        
+        DB::table('modulos')->insert([
+            'nombre'           => "Comida Ingrediente",
+            'dir'              => "../app/img/diagrama.png",
+            'refId'            => "comida-ingredientes",
+            'icono'            => " fa-cart-plus",
+            'link'             => "comida-ingredientes",
+            'tipo'             => 1,
+            'estado'           => 1,
+            'orden'            => 8,
+            'deleted_at'       => null,
+            'created_at'       => date('Y-m-d H:m:s'),
+            'updated_at'       => date('Y-m-d H:m:s')
+        ]);
+
+        DB::table('modulos')->insert([
+            'nombre'           => "Ingredientes",
+            'dir'              => "../app/img/notas.png",
+            'refId'            => "ingredientes",
+            'icono'            => " fa-fire",
+            'link'             => "ingredientes",
+            'tipo'             => 1,
+            'estado'           => 1,
+            'orden'            => 9,
+            'deleted_at'       => null,
+            'created_at'       => date('Y-m-d H:m:s'),
+            'updated_at'       => date('Y-m-d H:m:s')
+        ]);
+        
+        DB::table('modulos')->insert([
+            'nombre'           => "Clientes",
+            'dir'              => "../app/img/diagrama.png",
+            'refId'            => "clientes",
+            'icono'            => "ticket",
+            'link'             => "clientes",
+            'tipo'             => 1,
+            'estado'           => 1,
+            'orden'            => 10,
             'deleted_at'       => null,
             'created_at'       => date('Y-m-d H:m:s'),
             'updated_at'       => date('Y-m-d H:m:s')
@@ -117,66 +159,11 @@ class ModulosSeeder extends Seeder
             'link'             => "estadistica",
             'tipo'             => 1,
             'estado'           => 1,
-            'orden'            => 7,
-            'deleted_at'       => null,
-            'created_at'       => date('Y-m-d H:m:s'),
-            'updated_at'       => date('Y-m-d H:m:s')
-        ]);
-
-        DB::table('modulos')->insert([
-            'nombre'           => "Inventario",
-            'dir'              => "../app/img/notas.png",
-            'refId'            => "inventario",
-            'icono'            => "bars",
-            'link'             => "inventario",
-            'tipo'             => 0,
-            'estado'           => 1,
-            'orden'            => 8,
-            'deleted_at'       => null,
-            'created_at'       => date('Y-m-d H:m:s'),
-            'updated_at'       => date('Y-m-d H:m:s')
-        ]);
-
-        DB::table('modulos')->insert([
-            'nombre'           => "Pagos",
-            'dir'              => "../app/img/pagos.png",
-            'refId'            => "pagos",
-            'icono'            => "credit-card",
-            'link'             => "pagos",
-            'tipo'             => 1,
-            'estado'           => 1,
-            'orden'            => 9,
-            'deleted_at'       => null,
-            'created_at'       => date('Y-m-d H:m:s'),
-            'updated_at'       => date('Y-m-d H:m:s')
-        ]);
-
-        DB::table('modulos')->insert([
-            'nombre'           => "Clientes",
-            'dir'              => "../app/img/clientes.png",
-            'refId'            => "clientes1",
-            'icono'            => "ticket",
-            'link'             => "clientes",
-            'tipo'             => 1,
-            'estado'           => 1,
-            'orden'            => 10,
-            'deleted_at'       => null,
-            'created_at'       => date('Y-m-d H:m:s'),
-            'updated_at'       => date('Y-m-d H:m:s')
-        ]);
-
-        DB::table('modulos')->insert([
-            'nombre'           => "Proveedores",
-            'dir'              => "../app/img/proveedores.png",
-            'refId'            => "proveedores1",
-            'icono'            => "truck",
-            'link'             => "proveedores",
-            'tipo'             => 1,
-            'estado'           => 1,
             'orden'            => 11,
             'deleted_at'       => null,
             'created_at'       => date('Y-m-d H:m:s'),
             'updated_at'       => date('Y-m-d H:m:s')
         ]);
+
     }
 }
