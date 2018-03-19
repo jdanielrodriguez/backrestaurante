@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Mesas;
 use App\Cuentas;
 use Response;
 use Validator;
@@ -17,7 +18,18 @@ class CuentasController extends Controller
      */
     public function index()
     {
-        return Response::json(Cuentas::all(), 200);
+        $objectSee1 = Cuentas::select('mesa')->where('estado','>','0')->get();
+        if ($objectSee1) {
+            $objectSee = Mesas::whereIn('id',$objectSee1)->with('cuentasHabilitadas')->get();
+            return Response::json($objectSee, 200);
+        }
+        else {
+            $returnData = array (
+                'status' => 404,
+                'message' => 'No record found'
+            );
+            return Response::json($returnData, 404);
+        }
     }
 
     /**

@@ -76,7 +76,7 @@ class MesasController extends Controller
      */
     public function show($id)
     {
-        $objectSee = Mesas::find($id);
+        $objectSee = Mesas::with('cuentas')->whereRaw('id=?',[$id])->first();
         if ($objectSee) {
             return Response::json($objectSee, 200);
         

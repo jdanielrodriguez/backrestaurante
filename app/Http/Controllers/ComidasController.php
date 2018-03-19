@@ -40,8 +40,6 @@ class ComidasController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nombre'       => 'required',
-            'codigo'       => 'required',
-            'costo'        => 'required',
         ]);
         if ( $validator->fails() ) {
             $returnData = array (
