@@ -60,7 +60,7 @@ return [
             'key' => 'AKIAJ4JRR4IYMVODSWGA',
             'secret' => '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',
             'region' => 'us-west-2',
-            'bucket' => 'berp',
+            'bucket' => 'brestaurante',
         ],
 
     ],

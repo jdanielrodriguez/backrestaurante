@@ -30,6 +30,9 @@ Route::resource('sucursales', 'SucursalesController');
 Route::resource('usuarios', 'UsuariosController');
 
 Route::post('usuarios/{id}/upload/avatar', 'UsuariosController@uploadAvatar');
+Route::post('comidas/{id}/upload/avatar', 'ComidasController@uploadAvatar');
+Route::post('ingredientes/{id}/upload/avatar', 'IngredientesController@uploadAvatar');
+Route::post('combos/{id}/upload/avatar', 'CombosController@uploadAvatar');
 Route::post('usuarios/{id}/changepassword', 'UsuariosController@changePassword');
 Route::post('usuarios/password/reset', 'UsuariosController@recoveryPassword');
 

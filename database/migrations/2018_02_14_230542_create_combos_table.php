@@ -16,6 +16,7 @@ class CreateCombosTable extends Migration
         Schema::create('combos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre')->nullable()->default(null);
+            $table->string('foto')->nullable()->default(null);
             $table->string('codigo')->nullable()->default(null);
             $table->double('costo',20,2)->nullable()->default(null);
             $table->tinyInteger('estado')->nullable()->default(1);
