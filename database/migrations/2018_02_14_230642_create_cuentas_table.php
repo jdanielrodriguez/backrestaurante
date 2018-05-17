@@ -18,6 +18,7 @@ class CreateCuentasTable extends Migration
             $table->string('nombre')->nullable()->default(null);
             $table->string('codigo')->nullable()->default(null);
             $table->double('costo',20,2)->nullable()->default(null);
+            $table->double('total',20,2)->nullable()->default(null);
             $table->tinyInteger('separadas')->nullable()->default(1);
             $table->tinyInteger('estado')->nullable()->default(1);
 
