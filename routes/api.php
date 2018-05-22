@@ -40,6 +40,8 @@ Route::get('usuarios/{id}/modulos', 'AccesosController@getAccesos');
 Route::get('usuarios/{id}/modulos/{id2}', 'AccesosController@getAcceso');
 Route::get('buscar/clientes', 'ClientesController@find');
 
+Route::get('ingrediente/comida/{id}', 'ComidaIngredienteController@ingredientesOfComida');
+
 Route::post('login', 'AuthenticateController@login');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

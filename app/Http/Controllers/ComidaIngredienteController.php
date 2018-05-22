@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\ComidaIngrediente;
+use App\Ingredientes;
 use Response;
 use Validator;
 
@@ -94,6 +95,38 @@ class ComidaIngredienteController extends Controller
         $objectSee = ComidaIngrediente::find($id);
         if ($objectSee) {
             return Response::json($objectSee, 200);
+        
+        }
+        else {
+            $returnData = array (
+                'status' => 404,
+                'message' => 'No record found'
+            );
+            return Response::json($returnData, 404);
+        }
+    }
+
+    public function ingredientesOfComida($id)
+    {
+        $objectSee1 = Ingredientes::all();
+        $objectSee = ComidaIngrediente::whereRaw('comida=?',$id)->get();
+
+        $ingredientes = [];
+
+        if ($objectSee1) {
+            foreach ($objectSee1 as $value1) {
+                $value1->agregado = 0;
+                $value1->addId = null;
+                foreach ($objectSee as $value) {
+                    if($value1->id == $value->ingrediente)
+                    {
+                        $value1->agregado = 1;
+                        $value1->addId = $value->id;
+                    }
+                }
+                array_push($ingredientes, $value1);
+            }
+            return Response::json($ingredientes, 200);
         
         }
         else {
