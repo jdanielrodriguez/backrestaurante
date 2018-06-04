@@ -24,6 +24,8 @@ class CreateComidaIngredienteTable extends Migration
             $table->foreign('comida')->references('id')->on('comidas')->onDelete('cascade');
             $table->Integer('ingrediente')->unsigned()->nullable()->default(null);
             $table->foreign('ingrediente')->references('id')->on('ingredientes')->onDelete('cascade');
+            $table->Integer('combo')->unsigned()->nullable()->default(null);
+            $table->foreign('combo')->references('id')->on('combos')->onDelete('cascade');
             
             $table->softDeletes();
             $table->timestamps();

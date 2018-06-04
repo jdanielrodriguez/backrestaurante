@@ -41,6 +41,7 @@ Route::get('usuarios/{id}/modulos/{id2}', 'AccesosController@getAcceso');
 Route::get('buscar/clientes', 'ClientesController@find');
 
 Route::get('ingrediente/comida/{id}', 'ComidaIngredienteController@ingredientesOfComida');
+Route::get('ingrediente/combo/{id}', 'ComidaIngredienteController@ingredientesOfCombo');
 
 Route::post('login', 'AuthenticateController@login');
 

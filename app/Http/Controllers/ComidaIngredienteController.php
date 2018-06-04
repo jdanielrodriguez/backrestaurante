@@ -40,8 +40,7 @@ class ComidaIngredienteController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'comida'       => 'required',
-            'ingrediente'  => 'required',
+            'ingrediente'  => 'required'
         ]);
         if ( $validator->fails() ) {
             $returnData = array (
@@ -58,6 +57,7 @@ class ComidaIngredienteController extends Controller
                 $newObject->codigo            = $request->get('codigo');
                 $newObject->costo             = $request->get('costo');
                 $newObject->comida            = $request->get('comida');
+                $newObject->combo             = $request->get('combo');
                 $newObject->ingrediente       = $request->get('ingrediente');
                 $newObject->save();
                 return Response::json($newObject, 200);
@@ -110,6 +110,38 @@ class ComidaIngredienteController extends Controller
     {
         $objectSee1 = Ingredientes::all();
         $objectSee = ComidaIngrediente::whereRaw('comida=?',$id)->get();
+
+        $ingredientes = [];
+
+        if ($objectSee1) {
+            foreach ($objectSee1 as $value1) {
+                $value1->agregado = 0;
+                $value1->addId = null;
+                foreach ($objectSee as $value) {
+                    if($value1->id == $value->ingrediente)
+                    {
+                        $value1->agregado = 1;
+                        $value1->addId = $value->id;
+                    }
+                }
+                array_push($ingredientes, $value1);
+            }
+            return Response::json($ingredientes, 200);
+        
+        }
+        else {
+            $returnData = array (
+                'status' => 404,
+                'message' => 'No record found'
+            );
+            return Response::json($returnData, 404);
+        }
+    }
+
+    public function ingredientesOfCombo($id)
+    {
+        $objectSee1 = Ingredientes::all();
+        $objectSee = ComidaIngrediente::whereRaw('combo=?',$id)->get();
 
         $ingredientes = [];
 
