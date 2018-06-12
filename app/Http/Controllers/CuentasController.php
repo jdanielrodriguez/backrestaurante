@@ -16,11 +16,26 @@ class CuentasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getCuentasByMesas()
     {
         $objectSee1 = Cuentas::select('mesa')->where('estado','>','0')->get();
         if ($objectSee1) {
             $objectSee = Mesas::whereIn('id',$objectSee1)->with('cuentasHabilitadas')->get();
+            return Response::json($objectSee, 200);
+        }
+        else {
+            $returnData = array (
+                'status' => 404,
+                'message' => 'No record found'
+            );
+            return Response::json($returnData, 404);
+        }
+    }
+
+    public function index()
+    {
+        $objectSee = Cuentas::where('estado','>','0')->get();
+        if ($objectSee) {
             return Response::json($objectSee, 200);
         }
         else {
@@ -52,7 +67,6 @@ class CuentasController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nombre'       => 'required',
-            'mesa'         => 'required',
             'usuario'      => 'required',
         ]);
         if ( $validator->fails() ) {

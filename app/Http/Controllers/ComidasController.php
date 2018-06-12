@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\ComidaMenu;
 use App\Comidas;
 use Response;
 use Validator;
@@ -134,6 +135,37 @@ class ComidasController extends Controller
         }
     }
 
+    public function comidasByMenu($id)
+    {
+        $objectSee1 = Comidas::all();
+        $objectSee = ComidaMenu::whereRaw('menu=?',$id)->get();
+
+        $comidas = [];
+
+        if ($objectSee1) {
+            foreach ($objectSee1 as $value1) {
+                $value1->agregado = 0;
+                $value1->addId = null;
+                foreach ($objectSee as $value) {
+                    if($value1->id == $value->comida)
+                    {
+                        $value1->agregado = 1;
+                        $value1->addId = $value->id;
+                    }
+                }
+                array_push($comidas, $value1);
+            }
+            return Response::json($comidas, 200);
+        
+        }
+        else {
+            $returnData = array (
+                'status' => 404,
+                'message' => 'No record found'
+            );
+            return Response::json($returnData, 404);
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *

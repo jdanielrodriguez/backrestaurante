@@ -104,6 +104,21 @@ class MenusController extends Controller
         }
     }
 
+    public function menusByCuentas($id)
+    {
+        $objectSee = Menus::whereRaw('cuenta=?',$id)->get();
+        if ($objectSee) {
+            return Response::json($objectSee, 200);
+        
+        }
+        else {
+            $returnData = array (
+                'status' => 404,
+                'message' => 'No record found'
+            );
+            return Response::json($returnData, 404);
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *

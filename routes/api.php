@@ -36,6 +36,8 @@ Route::post('combos/{id}/upload/avatar', 'CombosController@uploadAvatar');
 Route::post('usuarios/{id}/changepassword', 'UsuariosController@changePassword');
 Route::post('usuarios/password/reset', 'UsuariosController@recoveryPassword');
 
+Route::get('menus/cuenta/{id}', 'MenusController@menusByCuentas');
+Route::get('comidas/menu/{id}', 'ComidasController@comidasByMenu');
 Route::get('usuarios/{id}/modulos', 'AccesosController@getAccesos');
 Route::get('usuarios/{id}/modulos/{id2}', 'AccesosController@getAcceso');
 Route::get('buscar/clientes', 'ClientesController@find');
