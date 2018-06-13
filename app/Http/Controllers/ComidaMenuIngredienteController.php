@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\ComidaMenu;
 use App\ComidaMenuIngrediente;
-use App\ComidaIngrediente;
-use App\Ingredientes;
 use Response;
 use Validator;
 
-class ComidaIngredienteController extends Controller
+class ComidaMenuIngredienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +17,7 @@ class ComidaIngredienteController extends Controller
      */
     public function index()
     {
-        return Response::json(ComidaIngrediente::all(), 200);
+        return Response::json(ComidaMenuIngrediente::all(), 200);
     }
 
     /**
@@ -42,7 +39,8 @@ class ComidaIngredienteController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'ingrediente'  => 'required'
+            'comida_menu'  => 'required',
+            'ingrediente'         => 'required',
         ]);
         if ( $validator->fails() ) {
             $returnData = array (
@@ -54,12 +52,12 @@ class ComidaIngredienteController extends Controller
         }
         else {
             try {
-                $newObject = new ComidaIngrediente();
+                $newObject = new ComidaMenuIngrediente();
                 $newObject->nombre            = $request->get('nombre');
                 $newObject->codigo            = $request->get('codigo');
                 $newObject->costo             = $request->get('costo');
+                $newObject->comida_menu       = $request->get('comida_menu');
                 $newObject->ingrediente       = $request->get('ingrediente');
-                $newObject->comida       = $request->get('comida');
                 $newObject->save();
                 return Response::json($newObject, 200);
             
@@ -93,75 +91,9 @@ class ComidaIngredienteController extends Controller
      */
     public function show($id)
     {
-        $objectSee = ComidaIngrediente::find($id);
+        $objectSee = ComidaMenuIngrediente::find($id);
         if ($objectSee) {
             return Response::json($objectSee, 200);
-        
-        }
-        else {
-            $returnData = array (
-                'status' => 404,
-                'message' => 'No record found'
-            );
-            return Response::json($returnData, 404);
-        }
-    }
-
-    public function ingredientesOfComida($id)
-    {
-        $objectSee1 = Ingredientes::all();
-        $objectSee = ComidaIngrediente::whereRaw('comida=?',$id)->get();
-
-        $ingredientes = [];
-
-        if ($objectSee1) {
-            foreach ($objectSee1 as $value1) {
-                $value1->agregado = 0;
-                $value1->addId = null;
-                foreach ($objectSee as $value) {
-                    if($value1->id == $value->ingrediente)
-                    {
-                        $value1->agregado = 1;
-                        $value1->addId = $value->id;
-                    }
-                }
-                array_push($ingredientes, $value1);
-            }
-            return Response::json($ingredientes, 200);
-        
-        }
-        else {
-            $returnData = array (
-                'status' => 404,
-                'message' => 'No record found'
-            );
-            return Response::json($returnData, 404);
-        }
-    }
-
-    public function ingredientesOfComidaMenu($id,$id2)
-    {
-        $objectSee1 = ComidaIngrediente::whereRaw('comida=?',$id2)->with('ingrediente')->get();
-        $objectSee = ComidaMenuIngrediente::whereRaw('comida_menu=?',$id)->get();
-
-        $ingredientes = [];
-
-        if ($objectSee1) {
-            foreach ($objectSee1 as $value1) {
-                $value1->agregado = 0;
-                $value1->addId = null;
-                $value1->parentId = $id;
-                foreach ($objectSee as $value) {
-                    if($value1->ingrediente == $value->ingrediente)
-                    {
-                        $value1->agregado = 1;
-                        $value1->addId = $value->id;
-                    }
-                    $value1->ingrediente;
-                }
-                array_push($ingredientes, $value1);
-            }
-            return Response::json($ingredientes, 200);
         
         }
         else {
@@ -193,14 +125,14 @@ class ComidaIngredienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $objectUpdate = ComidaIngrediente::find($id);
+        $objectUpdate = ComidaMenuIngrediente::find($id);
         if ($objectUpdate) {
             try {
                 $objectUpdate->nombre            = $request->get('nombre', $objectUpdate->nombre);
                 $objectUpdate->codigo            = $request->get('codigo', $objectUpdate->codigo);
                 $objectUpdate->costo             = $request->get('costo', $objectUpdate->costo);
                 $objectUpdate->estado            = $request->get('estado', $objectUpdate->estado);
-                $objectUpdate->comida            = $request->get('comida', $objectUpdate->comida);
+                $objectUpdate->comida_menu       = $request->get('comida_menu', $objectUpdate->comida_menu);
                 $objectUpdate->ingrediente       = $request->get('ingrediente', $objectUpdate->ingrediente);
                 
                 $objectUpdate->save();
@@ -242,27 +174,10 @@ class ComidaIngredienteController extends Controller
      */
     public function destroy($id)
     {
-        $objectDelete = ComidaIngrediente::find($id);
+        $objectDelete = ComidaMenuIngrediente::find($id);
         if ($objectDelete) {
             try {
-                ComidaIngrediente::destroy($id);
-                $objectSee = ComidaMenu::whereRaw('comida=?',[$objectDelete->comida])->first();
-                if ($objectSee) {
-                    $objectDelete1 = ComidaMenuIngrediente::whereRaw('comida_menu=? && ingrediente=?',[$objectSee->id,$objectDelete->ingrediente])->first();
-                    if ($objectDelete1) {
-                        try {
-                            ComidaMenuIngrediente::destroy($objectDelete1->id);
-                            return Response::json($objectDelete, 200);
-                        } catch (Exception $e) {
-                            $returnData = array (
-                                'status' => 500,
-                                'message' => $e->getMessage()
-                            );
-                            return Response::json($returnData, 500);
-                        }
-                    }
-                
-                }
+                ComidaMenuIngrediente::destroy($id);
                 return Response::json($objectDelete, 200);
             } catch (Exception $e) {
                 $returnData = array (

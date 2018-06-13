@@ -3,12 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ComidaIngrediente extends Model
+class ComidaMenuIngrediente extends Model
 {
-    use SoftDeletes;
-    protected $table = 'comida_ingrediente';
+    protected $table = 'comida_menu_ingrediente';
 
     public function ingrediente(){
         return $this->hasOne('App\Ingredientes','id','ingrediente');

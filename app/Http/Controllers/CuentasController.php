@@ -31,10 +31,25 @@ class CuentasController extends Controller
             return Response::json($returnData, 404);
         }
     }
-
+    
     public function index()
     {
-        $objectSee = Cuentas::where('estado','>','0')->get();
+        $objectSee = Cuentas::where('estado','>=','2')->get();
+        if ($objectSee) {
+            return Response::json($objectSee, 200);
+        }
+        else {
+            $returnData = array (
+                'status' => 404,
+                'message' => 'No record found'
+            );
+            return Response::json($returnData, 404);
+        }
+    }
+
+    public function cuentaPorCobrar()
+    {
+        $objectSee = Cuentas::where('estado','<','2')->get();
         if ($objectSee) {
             return Response::json($objectSee, 200);
         }
@@ -66,7 +81,7 @@ class CuentasController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre'       => 'required',
+            'codigo'       => 'required',
             'usuario'      => 'required',
         ]);
         if ( $validator->fails() ) {
@@ -82,7 +97,7 @@ class CuentasController extends Controller
                 $newObject = new Cuentas();
                 $newObject->nombre            = $request->get('nombre');
                 $newObject->codigo            = $request->get('codigo');
-                $newObject->costo             = $request->get('costo');
+                $newObject->costo             = $request->get('costo',0);
                 $newObject->separadas         = $request->get('separadas');
                 $newObject->mesa              = $request->get('mesa');
                 $newObject->usuario           = $request->get('usuario');

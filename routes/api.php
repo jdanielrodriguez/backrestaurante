@@ -18,6 +18,7 @@ Route::resource('clientes', 'ClientesController');
 Route::resource('combos', 'CombosController');
 Route::resource('comidaingrediente', 'ComidaIngredienteController');
 Route::resource('comidamenu', 'ComidaMenuController');
+Route::resource('comidamenuingrediente', 'ComidaMenuIngredienteController');
 Route::resource('comidas', 'ComidasController');
 Route::resource('cuentas', 'CuentasController');
 Route::resource('empleados', 'EmpleadosController');
@@ -42,6 +43,9 @@ Route::get('usuarios/{id}/modulos', 'AccesosController@getAccesos');
 Route::get('usuarios/{id}/modulos/{id2}', 'AccesosController@getAcceso');
 Route::get('buscar/clientes', 'ClientesController@find');
 
+Route::get('porpagar/cuentas', 'CuentasController@cuentaPorCobrar');
+
+Route::get('ingrediente/comidamenu/{id}/{id2}', 'ComidaIngredienteController@ingredientesOfComidaMenu');
 Route::get('ingrediente/comida/{id}', 'ComidaIngredienteController@ingredientesOfComida');
 Route::get('ingrediente/combo/{id}', 'ComidaIngredienteController@ingredientesOfCombo');
 
