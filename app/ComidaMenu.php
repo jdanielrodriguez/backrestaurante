@@ -11,4 +11,8 @@ class ComidaMenu extends Model
     public function ingredientes(){
         return $this->hasMany('App\ComidaMenuIngrediente','comida_menu','id')->with('ingrediente');
     }
+
+    public function comidas(){
+        return $this->hasOne('App\Comidas','id','comida');
+    }
 }

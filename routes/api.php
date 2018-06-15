@@ -45,6 +45,7 @@ Route::get('buscar/clientes', 'ClientesController@find');
 
 Route::get('porpagar/cuentas', 'CuentasController@cuentaPorCobrar');
 
+Route::get('cocina/menus', 'CuentasController@getOrdenes');
 Route::get('ingrediente/comidamenu/{id}/{id2}', 'ComidaIngredienteController@ingredientesOfComidaMenu');
 Route::get('ingrediente/comida/{id}', 'ComidaIngredienteController@ingredientesOfComida');
 Route::get('ingrediente/combo/{id}', 'ComidaIngredienteController@ingredientesOfCombo');

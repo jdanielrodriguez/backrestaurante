@@ -34,7 +34,7 @@ class CuentasController extends Controller
     
     public function index()
     {
-        $objectSee = Cuentas::where('estado','>=','2')->get();
+        $objectSee = Cuentas::where('estado','>=','3')->get();
         if ($objectSee) {
             return Response::json($objectSee, 200);
         }
@@ -49,7 +49,7 @@ class CuentasController extends Controller
 
     public function cuentaPorCobrar()
     {
-        $objectSee = Cuentas::where('estado','<','2')->get();
+        $objectSee = Cuentas::where('estado','<','3')->get();
         if ($objectSee) {
             return Response::json($objectSee, 200);
         }
@@ -61,7 +61,22 @@ class CuentasController extends Controller
             return Response::json($returnData, 404);
         }
     }
-
+    
+    public function getOrdenes()
+    {
+        $objectSee = Cuentas::whereRaw('estado<3')->with('menus')->get();
+        if ($objectSee) {
+            return Response::json($objectSee, 200);
+        
+        }
+        else {
+            $returnData = array (
+                'status' => 404,
+                'message' => 'No record found'
+            );
+            return Response::json($returnData, 404);
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *

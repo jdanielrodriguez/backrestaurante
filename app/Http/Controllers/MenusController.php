@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Menus;
+use App\Cuentas;
 use Response;
 use Validator;
 
@@ -58,7 +59,27 @@ class MenusController extends Controller
                 $newObject->costo             = $request->get('costo');
                 $newObject->cuenta            = $request->get('cuenta');
                 $newObject->save();
-                return Response::json($newObject, 200);
+                $objectUpdate = Cuentas::find($request->get('cuenta'));
+                if ($objectUpdate) {
+                    try {
+                        $objectUpdate->estado = 1;
+                        $objectUpdate->save();
+                        return Response::json($newObject, 200);
+                    } catch (Exception $e) {
+                        $returnData = array (
+                            'status' => 500,
+                            'message' => $e->getMessage()
+                        );
+                        return Response::json($returnData, 500);
+                    }
+                }
+                else {
+                    $returnData = array (
+                        'status' => 404,
+                        'message' => 'No record found'
+                    );
+                    return Response::json($returnData, 404);
+                }
             
             } catch (\Illuminate\Database\QueryException $e) {
                 if($e->errorInfo[0] == '01000'){
