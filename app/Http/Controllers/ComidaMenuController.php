@@ -62,25 +62,25 @@ class ComidaMenuController extends Controller
                 $newObject->combo             = $request->get('combo');
                 $newObject->menu              = $request->get('menu');
                 $newObject->save();
-                $objectSee = ComidaIngrediente::whereRaw('comida=?',$newObject->comida)->get();
-                if ($objectSee) {
-                    foreach ($objectSee as $variable) {
-                        $newObject2 = new ComidaMenuIngrediente();
-                        $newObject2->comida_menu       = $newObject->id;
-                        $newObject2->ingrediente       = $variable->ingrediente;
-                        $newObject2->save();
-                    }
-                    $newObject->ingredientes;
-                    return Response::json($newObject, 200);
+                // $objectSee = ComidaIngrediente::whereRaw('comida=?',$newObject->comida)->get();
+                // if ($objectSee) {
+                //     foreach ($objectSee as $variable) {
+                //         $newObject2 = new ComidaMenuIngrediente();
+                //         $newObject2->comida_menu       = $newObject->id;
+                //         $newObject2->ingrediente       = $variable->ingrediente;
+                //         $newObject2->save();
+                //     }
+                //     $newObject->ingredientes;
+                //     return Response::json($newObject, 200);
                 
-                }
-                else {
-                    $returnData = array (
-                        'status' => 404,
-                        'message' => 'No record found'
-                    );
-                    return Response::json($returnData, 404);
-                }
+                // }
+                // else {
+                //     $returnData = array (
+                //         'status' => 404,
+                //         'message' => 'No record found'
+                //     );
+                //     return Response::json($returnData, 404);
+                // }
                 return Response::json($newObject, 200);
             
             } catch (\Illuminate\Database\QueryException $e) {
