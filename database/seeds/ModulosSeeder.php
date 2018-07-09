@@ -151,5 +151,19 @@ class ModulosSeeder extends Seeder
             'updated_at'       => date('Y-m-d H:m:s')
         ]);
 
+        DB::table('modulos')->insert([
+            'nombre'           => "Cocina",
+            'dir'              => "",
+            'refId'            => "cocina",
+            'icono'            => "list-alt",
+            'link'             => "cocina",
+            'tipo'             => 0,
+            'estado'           => 1,
+            'orden'            => 4,
+            'deleted_at'       => null,
+            'created_at'       => date('Y-m-d H:m:s'),
+            'updated_at'       => date('Y-m-d H:m:s')
+        ]);
+
     }
 }
