@@ -31,7 +31,7 @@ class ModulosSeeder extends Seeder
             'refId'            => "sucursales",
             'icono'            => "sitemap",
             'link'             => "sucursales",
-            'tipo'             => 0,
+            'tipo'             => 1,
             'estado'           => 1,
             'orden'            => 2,
             'deleted_at'       => null,
@@ -59,9 +59,9 @@ class ModulosSeeder extends Seeder
             'refId'            => "mesas",
             'icono'            => " fa-cutlery",
             'link'             => "mesas",
-            'tipo'             => 0,
+            'tipo'             => 1,
             'estado'           => 1,
-            'orden'            => 4,
+            'orden'            => 8,
             'deleted_at'       => null,
             'created_at'       => date('Y-m-d H:m:s'),
             'updated_at'       => date('Y-m-d H:m:s')
@@ -73,23 +73,9 @@ class ModulosSeeder extends Seeder
             'refId'            => "comidas",
             'icono'            => " fa-coffee",
             'link'             => "comidas",
-            'tipo'             => 0,
-            'estado'           => 1,
-            'orden'            => 5,
-            'deleted_at'       => null,
-            'created_at'       => date('Y-m-d H:m:s'),
-            'updated_at'       => date('Y-m-d H:m:s')
-        ]);
-        
-        DB::table('modulos')->insert([
-            'nombre'           => "Combos",
-            'dir'              => "../app/img/diagrama.png",
-            'refId'            => "combos",
-            'icono'            => " fa-puzzle-piece",
-            'link'             => "combos",
             'tipo'             => 1,
             'estado'           => 1,
-            'orden'            => 6,
+            'orden'            => 4,
             'deleted_at'       => null,
             'created_at'       => date('Y-m-d H:m:s'),
             'updated_at'       => date('Y-m-d H:m:s')
@@ -117,7 +103,7 @@ class ModulosSeeder extends Seeder
             'link'             => "comida-ingredientes",
             'tipo'             => 1,
             'estado'           => 1,
-            'orden'            => 8,
+            'orden'            => 6,
             'deleted_at'       => null,
             'created_at'       => date('Y-m-d H:m:s'),
             'updated_at'       => date('Y-m-d H:m:s')
@@ -131,7 +117,7 @@ class ModulosSeeder extends Seeder
             'link'             => "ingredientes",
             'tipo'             => 1,
             'estado'           => 1,
-            'orden'            => 9,
+            'orden'            => 5,
             'deleted_at'       => null,
             'created_at'       => date('Y-m-d H:m:s'),
             'updated_at'       => date('Y-m-d H:m:s')
